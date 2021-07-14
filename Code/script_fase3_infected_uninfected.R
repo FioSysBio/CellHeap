@@ -20,5 +20,4 @@ write.table(sample[,not_infected], file= "barcodes_not_infected.tsv", quote=FALS
 #dataframe  infected
 write.table(sample[,infected], file= "barcodes_infected.tsv", quote=FALSE, sep=',', col.names = TRUE)
 
-```
 
