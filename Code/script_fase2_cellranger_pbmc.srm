@@ -3,7 +3,7 @@
 #SBATCH --ntasks-per-node=1  #Numero de tarefas por Nó
 #SBATCH --cpus-per-task=6    #Numero de threads por tarefa MPI
 #SBATCH -p sequana_cpu    #Fila (partition) a ser utilizada
-#SBATCH -J UPN4_j10_              #Nome job
+#SBATCH -J UPN4               #Nome job
 #SBATCH --time=08:00:00      #Altera o tempo limite para 8 horas
 #SBATCH --exclusive          #Utilização exclusiva dos nós durante a execução do job
 
