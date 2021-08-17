@@ -2,7 +2,7 @@
         Description of GEO series GSE145926 samples
 ###########################################################
 
-Link GEO: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145926
+GEO link: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE145926
 
 
 Samples:
