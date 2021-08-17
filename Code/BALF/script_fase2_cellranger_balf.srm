@@ -21,5 +21,5 @@ EXEC=/scratch/app/cellranger/4.0.0/bin/cellranger
 module load cellranger
 $EXEC count --id=54\
              --fastqs=/scratch/inova-covd19/vanessa.silva/test54/\
-             --transcriptome=/scratch/inova-covd19/vanessa.silva/refer_hybrid/human_and_sarscov2\
+             --transcriptome=/scratch/inova-covd19/vanessa.silva/refer_hybrid/new_test_new_hv\
              --sample=SRR11181954
