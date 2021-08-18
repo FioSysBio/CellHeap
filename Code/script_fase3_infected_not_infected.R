@@ -9,23 +9,45 @@ library(RColorBrewer)
 library(gplots)
 
 #Loading the data 
+#mild
 #Output cellranger
+sp54.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test54/new4_0/54_hv/outs/filtered_feature_bc_matrix")
+sp55.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_55/new4_0/55_hv/outs/filtered_feature_bc_matrix")
+sp57.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_57/new4_0/576_hv/outs/filtered_feature_bc_matrix")
+
+#severe
 sp56.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_56/new4_0/56_hv/outs/filtered_feature_bc_matrix")
 sp58.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_58/new4_0/58_hv/outs/filtered_feature_bc_matrix")
 sp49.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_49/new4_0/49_hv/outs/filtered_feature_bc_matrix")
 sp50.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test50/new4_0/50_hv/outs/filtered_feature_bc_matrix")
 sp51.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_51/new4_0/51_hv/outs/filtered_feature_bc_matrix")
 
+#control
+ctrl1.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/control/control1_hv/outs/filtered_feature_bc_matrix")
+ctrl2.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/control/control2/control2_hv/outs/filtered_feature_bc_matrix")
+ctrl3.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/control/control3/control3_hv/outs/filtered_feature_bc_matrix")
+
 #create Seurat object
-sp56 <- CreateSeuratObject(counts = out, project = "sp56.data",min.cells = 1, min.genes = 150)
-sp58 <- CreateSeuratObject(counts = sp58.data, project = "sp58.data",min.cells = 1, min.genes = 150)
-sp59 <- CreateSeuratObject(counts = sp59.data, project = "sp59.data",min.cells = 1, min.genes = 150)
-sp49 <- CreateSeuratObject(counts = sp49.data, project = "sp49.data",min.cells = 1, min.genes = 150)
-sp50 <- CreateSeuratObject(counts = sp50.data, project = "sp50.data",min.cells = 1, min.genes = 150)
-sp51 <- CreateSeuratObject(counts = sp51.data, project = "sp51.data",min.cells = 1, min.genes = 150)
+#mild
+sp54 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
+sp55 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
+sp57 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
+
+#severe
+sp56 <- CreateSeuratObject(counts = out, project = "severe",min.cells = 1, min.genes = 150)
+sp58 <- CreateSeuratObject(counts = sp58.data, project = "severe",min.cells = 1, min.genes = 150)
+sp59 <- CreateSeuratObject(counts = sp59.data, project = "severe",min.cells = 1, min.genes = 150)
+sp49 <- CreateSeuratObject(counts = sp49.data, project = "severe",min.cells = 1, min.genes = 150)
+sp50 <- CreateSeuratObject(counts = sp50.data, project = "severe",min.cells = 1, min.genes = 150)
+sp51 <- CreateSeuratObject(counts = sp51.data, project = "severe",min.cells = 1, min.genes = 150)
+
+#control
+ctrl1 <- CreateSeuratObject(counts = ctrl1.data, project = "control",min.cells = 1, min.genes = 150)
+ctrl2 <- CreateSeuratObject(counts = ctrl2.data, project = "control",min.cells = 1, min.genes = 150)
+ctrl3 <- CreateSeuratObject(counts = ctrl3.data, project = "control",min.cells = 1, min.genes = 150)
 
 #merge files
-alldata <- merge(sp56, c(sp58, sp59, sp49,sp50,sp51), add.cell.ids=c("sp56.data","sp58.data","sp59.data","sp49.data","sp50.data","sp51.data"))
+alldata <- merge(sp54, c(sp55, sp57,sp56, sp58, sp59, sp49,sp50,sp51, ctrl1,ctrl2,ctrl3), add.cell.ids=c("sp54.data","sp55.data","sp57.data","sp56.data","sp58.data","sp59.data","sp49.data","sp50.data","sp51.data","ctrl1.data","ctrl2.data","ctrl3.data"))
 
 #Calculates the percentage of mitochondrial RNA reads
 alldata[["percent.mt"]] <- PercentageFeatureSet(alldata, pattern = "^MT-")
