@@ -8,7 +8,6 @@ library(cowplot)
 library(ggplot2)
 library(RColorBrewer)
 library(gplots)
-library(SoupX)
 
 #Loading the data 
 #mild
@@ -50,21 +49,6 @@ ctrl3 <- CreateSeuratObject(counts = ctrl3.data, project = "control",min.cells =
 
 #merge files
 alldata <- merge(sp54, c(sp55, sp57,sp56, sp58, sp59, sp49,sp50,sp51,ctrl1,ctrl2,ctrl3), add.cell.ids=c("sp54.data","sp55.data","sp57.data","sp56.data","sp58.data","sp59.data","sp49.data","sp50.data","sp51.data","ctrl1.data","ctrl2.data","ctrl3.data"))
-
-#The automated method
-sc = autoEstCont(alldata)
-
-#Correcting expression profile
-out = adjustCounts(sc)
-
-#Export data
-write10xCounts("/scratch/inova-covd19/vanessa.silva/output_soupx", out) 
-
-#Output soupx
-alldata <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/output_soupx")
-
-#create Seurat object
-alldata <- CreateSeuratObject(counts = alldata, project = "alldata")
 
 #Calculates the percentage of mitochondrial RNA reads
 alldata[["percent.mt"]] <- PercentageFeatureSet(alldata, pattern = "^MT-")
