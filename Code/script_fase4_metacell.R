@@ -1,17 +1,17 @@
 #packages and create directories
 library("metacell")
 library("dplyr")
-if(!dir.exists("mild")) dir.create("mild/")
+if(!dir.exists("samples")) dir.create("samples/")
 scdb_init("mild/", force_reinit=T)
-if(!dir.exists("resu_mild")) dir.create("resu_mild/")
-scfigs_init("resu_mild/")
+if(!dir.exists("resu_samples")) dir.create("resu_samples/")
+scfigs_init("resu_samples/")
 id = "lung_new"
 ord_id = "lung_new_sorted"
 library(knitr)
 
 #import objeto do Seurat
 #mild
-mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/counts.tsv", "/scratch/inova-covd19/vanessa.silva/test_55/new4_0/counts55.tsv", "/scratch/inova-covd19/vanessa.silva/test_57/new4_0/counts57.tsv", force = F)
+mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected.tsv", force = F)
 mat = scdb_mat("all")
 print(dim(mat@mat))
 mat = scdb_mat("all")
@@ -35,19 +35,12 @@ mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
 gstat = scdb_gstat(id)
 print(head(gstat))
 print(quantile(gstat$ds_vm_norm,c(1:20)/20))
-write.csv(gstat, file="mild/gstat.csv")
+write.csv(gstat, file="samples/gstat.csv")
 t_vm = 0.4
 mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
 other_genes = c("Ccnd2","Cdkn1c","H19","Hmga2","Igf2","Igfbp5","Mdk")
 bad_marks = unique(c(bad_genes,other_genes, "Malat1", "7SK","Xist", "mmu-mir-689-2", "Atp5g3", "Csta"))
-save(file="mild/bad_marks.Rda",bad_marks)
-
-#Selecionando os genes marcadores
-library(knitr)
-marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt", sep="\t", stringsAsFactors=F)
-kable(head(marks_colors))
-mc_colorize(new_mc_id = id, mc_id = id, marker_colors=marks_colors,override=T)
-mc = scdb_mc(id)
+save(file="samples/bad_marks.Rda",bad_marks)
 
 #Calcula a matriz de Knn, reamostra e clusteriza 
 set.seed(27)
@@ -60,7 +53,7 @@ coclust = scdb_coclust(id)
 kable(head(coclust@coclust))
 set.seed(27)
 mcell_mc_from_coclust_balanced(coc_id=id,mat_id= id,mc_id= id,K=100, min_mc_size=30, alpha=2)
-write.csv(coclust@coclust, file="mild/coclust.csv")
+write.csv(coclust@coclust, file="samples/coclust.csv")
 mc<- scdb_mc(id)
 scdb_add_mc(id,mc)
 
@@ -70,6 +63,13 @@ mcell_mc_split_filt(new_mc_id=id,
             mat_id=id,
             T_lfc=3, plot_mats=F)
 			
+#Selecionando os genes marcadores
+library(knitr)
+marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt", sep="\t", stringsAsFactors=F)
+kable(head(marks_colors))
+mc_colorize(new_mc_id = id, mc_id = id, marker_colors=marks_colors,override=T)
+mc = scdb_mc(id)
+
 #Plot dos heatmaps com as metacelulas
 mcell_gset_from_mc_markers(gset_id=paste0(id,"_markers"), mc_id=id)
 mcell_mc_plot_marks(mc_id=id, gset_id=paste0(id,"_markers"), mat_id=id,plot_cells = T)
@@ -85,13 +85,13 @@ set.seed(27)
 mc_hc = mcell_mc_hclust_confu(mc_id=id,graph_id=id)
 set.seed(27)
 mc_sup = mcell_mc_hierarchy(mc_id=id,mc_hc=mc_hc, T_gap=0.04)
-save(file="mild/mc_hc_sup.Rda",mc_hc,mc_sup)
+save(file="samples/mc_hc_sup.Rda",mc_hc,mc_sup)
 mcell_mc_plot_hierarchy(mc_id=id,graph_id=id,mc_order=mc_hc$order,sup_mc = mc_sup,width=3500, height=3500, min_nmc=2,show_mc_ids = T)
 mcell_mc_plot_confusion( mc_id=id,  graph_id=id)
 
 lfp <- log2 (mc@mc_fp)
 head (lfp, n=25L)
-write.csv(lfp, file="mild/lfp.csv", row.names=TRUE)
+write.csv(lfp, file="samples/lfp.csv", row.names=TRUE)
 
 
 #Identificação das subpopulações celulares
@@ -100,8 +100,8 @@ mcell_mc_export_tab(mc_id = id, gstat_id = id, mat_id = "all", T_fold=2, metadat
 lfp <- log2(mc@mc_fp)
 
 #Plot de enriquecimento de genes nas metacelulas
-png("resu_mild/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
-png("resu_mild/barplot2.png",h=1000,w=1000);barplot(lfp["NFKB1",],col=marks_colors,las=2,main="NFKB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
-png("resu_mild/barplot3.png",h=1000,w=1000);barplot(lfp["TGFBR2",],col=marks_colors,las=2,main="TGFBR2",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
-png("resu_mild/barplot4.png",h=1000,w=1000);barplot(lfp["FCGR3A",],col=marks_colors,las=2,main="FCGR3A",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
-png("resu_mild/barplot5.png",h=1000,w=1000);barplot(lfp["TGFB1",],col=marks_colors,las=2,main="TGFB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+png("resu_samples/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+png("resu_samples/barplot2.png",h=1000,w=1000);barplot(lfp["NFKB1",],col=marks_colors,las=2,main="NFKB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+png("resu_samples/barplot3.png",h=1000,w=1000);barplot(lfp["TGFBR2",],col=marks_colors,las=2,main="TGFBR2",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+png("resu_samples/barplot4.png",h=1000,w=1000);barplot(lfp["FCGR3A",],col=marks_colors,las=2,main="FCGR3A",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+png("resu_samples/barplot5.png",h=1000,w=1000);barplot(lfp["TGFB1",],col=marks_colors,las=2,main="TGFB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
