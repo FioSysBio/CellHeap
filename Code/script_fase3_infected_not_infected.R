@@ -13,7 +13,7 @@ library(gplots)
 #Output cellranger
 sp54.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test54/new4_0/54_hv/outs/filtered_feature_bc_matrix")
 sp55.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_55/new4_0/55_hv/outs/filtered_feature_bc_matrix")
-sp57.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_57/new4_0/576_hv/outs/filtered_feature_bc_matrix")
+sp57.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_57/new4_0/57_hv/outs/filtered_feature_bc_matrix")
 
 #severe
 sp56.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_56/new4_0/56_hv/outs/filtered_feature_bc_matrix")
@@ -29,12 +29,12 @@ ctrl3.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/control/co
 
 #create Seurat object
 #mild
-sp54 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
-sp55 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
-sp57 <- CreateSeuratObject(counts = out, project = "mild",min.cells = 1, min.genes = 150)
+sp54 <- CreateSeuratObject(counts = sp54.data, project = "mild",min.cells = 1, min.genes = 150)
+sp55 <- CreateSeuratObject(counts = sp55.data, project = "mild",min.cells = 1, min.genes = 150)
+sp57 <- CreateSeuratObject(counts = sp57.data, project = "mild",min.cells = 1, min.genes = 150)
 
 #severe
-sp56 <- CreateSeuratObject(counts = out, project = "severe",min.cells = 1, min.genes = 150)
+sp56 <- CreateSeuratObject(counts = sp56.data, project = "severe",min.cells = 1, min.genes = 150)
 sp58 <- CreateSeuratObject(counts = sp58.data, project = "severe",min.cells = 1, min.genes = 150)
 sp59 <- CreateSeuratObject(counts = sp59.data, project = "severe",min.cells = 1, min.genes = 150)
 sp49 <- CreateSeuratObject(counts = sp49.data, project = "severe",min.cells = 1, min.genes = 150)
