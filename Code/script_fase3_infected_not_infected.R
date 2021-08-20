@@ -60,9 +60,10 @@ feats <- c("nFeature_RNA", "nCount_RNA", "percent.mt")
 # cell filtering parameters for selecting cells based on number of genes/cell, UMI counts/cell, and percent mitochondrial genes according to Wauters et al, 2021. 
 alldata.filtered.nCount_RNA <- subset(alldata, subset = nFeature_RNA > 150 & nFeature_RNA < 3000 & percent.mt < 20 & nCount_RNA > 301)
 
-#Export .tsv file
+#Export .tsv and .csv files
 counts <- as.matrix(alldata.filtered.nCount_RNA@assays$RNA@counts)
 write.csv(counts, file="features.tsv")
+write.csv(alldata.filtered.nCount_RNA@meta.data, file="metadata_all.csv")
 
 #import of seurat filter file
 sample <- read.table("features.tsv", sep=",", header=T, row.names = 1)
