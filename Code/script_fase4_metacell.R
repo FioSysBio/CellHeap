@@ -11,7 +11,7 @@ library(knitr)
 
 #import objeto do Seurat
 #mild
-mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected.tsv", force = F)
+mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected.tsv", dset_nm = "/scratch/inova-covd19/vanessa.silva/repr/metadata_all.tsv", force = F)
 mat = scdb_mat("all")
 print(dim(mat@mat))
 mat = scdb_mat("all")
