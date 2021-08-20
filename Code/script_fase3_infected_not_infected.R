@@ -18,6 +18,7 @@ sp57.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_57/new
 #severe
 sp56.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_56/new4_0/56_hv/outs/filtered_feature_bc_matrix")
 sp58.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_58/new4_0/58_hv/outs/filtered_feature_bc_matrix")
+sp59.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_59/new4_0/59_hv/outs/filtered_feature_bc_matrix")
 sp49.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_49/new4_0/49_hv/outs/filtered_feature_bc_matrix")
 sp50.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test50/new4_0/50_hv/outs/filtered_feature_bc_matrix")
 sp51.data <- Read10X(data.dir = "/scratch/inova-covd19/vanessa.silva/test_51/new4_0/51_hv/outs/filtered_feature_bc_matrix")
