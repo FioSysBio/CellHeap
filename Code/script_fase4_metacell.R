@@ -2,7 +2,7 @@
 library("metacell")
 library("dplyr")
 if(!dir.exists("samples")) dir.create("samples/")
-scdb_init("mild/", force_reinit=T)
+scdb_init("samples/", force_reinit=T)
 if(!dir.exists("resu_samples")) dir.create("resu_samples/")
 scfigs_init("resu_samples/")
 id = "lung_new"
