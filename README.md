@@ -5,7 +5,7 @@ This repository contains supplementary materials for the paper "CellHeap: a Work
 
 CellHeap is a configurable, portable, and robust workflow for scRNA-seq customizable analyses, with quality control throughout the execution steps, ensuring reliable results and deployable on supercomputers.
 
-CellHeap comprises six phases: sample curation, gene count matrix generation, quality control, dimensionality reduction and clustering analysis, cell-level analysis, and gene-level analysis.
+CellHeap comprises six phases: (1) sample curation, (2) gene count matrix generation, (3) quality control, (4) dimensionality reduction and clustering analysis, (5) cell-level analysis, and (6) gene-level analysis.
 
 Selection criteria for sample curation are the following:
 
