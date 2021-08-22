@@ -26,4 +26,4 @@ Liao, M., Liu, Y., Yuan, J., Wen, Y., Xu, G., Zhao, J., Cheng, L., Li, J., Wang,
 
 In that paper, the authors considered 13 patients, from which four patients were controls, 3 presented mild symptoms, and 6 six patients developed severe symptoms of COVID-19. However, when we applied the dataset selection criteria related to phase 1, one dataset was discarded relative to one of the controls.
 
-Source code of CellHeap for Liao et al. 2020's dataset is in the code directory. Cellranger count outpput reports are in the Data/Cellranger directory.
+Source code of CellHeap for Liao et al. 2020's dataset is in the code directory. Cellranger count output reports are in the Data/BALF directory.
