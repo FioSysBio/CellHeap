@@ -14,10 +14,8 @@ library(knitr)
 mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected_control.tsv", dset_nm = "/scratch/inova-covd19/vanessa.silva/metadata_control.csv", force = F)
 mat = scdb_mat("all")
 print(dim(mat@mat))
-mat = scdb_mat("all")
 
-#Filtra genes de hemoglobina e mitocondriais
-ery_genes = c("Hba-a2", "Alas2", "Hba-a1", "Hbb-b2", "Hba-x", "Hbb-b1")
+#Filters mitochondrial genes
 nms = c(rownames(mat@mat), rownames(mat@ignore_gmat))
 ig_genes = c(grep("ERCC", nms, v=T), 
                 grep("^IGH",nms,v=T),
@@ -29,7 +27,7 @@ print(bad_genes)
 mcell_mat_ignore_genes(new_mat_id=id, mat_id="all", bad_genes, reverse=F) 
 mcell_mat_ignore_small_cells(id, id, 300)
 
-#Calcula estatísticas do conjunto de genes
+#Calculates gene dataset statistics
 set.seed(27)
 mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
 gstat = scdb_gstat(id)
@@ -38,11 +36,9 @@ print(quantile(gstat$ds_vm_norm,c(1:20)/20))
 write.csv(gstat, file="control/gstat.csv")
 t_vm = 0.4
 mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
-other_genes = c("Ccnd2","Cdkn1c","H19","Hmga2","Igf2","Igfbp5","Mdk")
-bad_marks = unique(c(bad_genes,other_genes, "Malat1", "7SK","Xist", "mmu-mir-689-2", "Atp5g3", "Csta"))
 save(file="control/bad_marks.Rda",bad_marks)
 
-#Calcula a matriz de Knn, reamostra e clusteriza 
+#Calculates Knn matrix, resamples and cluster
 set.seed(27)
 mcell_add_cgraph_from_mat_bknn(mat_id=id,gset_id = id,graph_id=id,K=100,dsamp=T)
 cgraph = scdb_cgraph(id)
@@ -57,30 +53,28 @@ write.csv(coclust@coclust, file="control/coclust.csv")
 mc<- scdb_mc(id)
 scdb_add_mc(id,mc)
 
-#Plot dos outliers
+#Plot outliers
 mcell_mc_split_filt(new_mc_id=id,
             mc_id=id,
             mat_id=id,
             T_lfc=3, plot_mats=F)
 			
-#Selecionando os genes marcadores
-library(knitr)
+#Selecting markers genes 
 marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt", sep="\t", stringsAsFactors=F)
 kable(head(marks_colors))
 mc_colorize(new_mc_id = id, mc_id = id, marker_colors=marks_colors,override=T)
-mc = scdb_mc(id)
 
-#Plot dos heatmaps com as metacelulas
+#Plot heatmaps with metacells
 mcell_gset_from_mc_markers(gset_id=paste0(id,"_markers"), mc_id=id)
 mcell_mc_plot_marks(mc_id=id, gset_id=paste0(id,"_markers"), mat_id=id,plot_cells = T)
 
-#Plot 2D das metacelulas
+#Plot 2D metacells
 mc2d_knn = mcell_mc2d_force_knn(mc2d_id="id_2dproj",mc_id=id, graph_id=id)
 tgconfig::set_param("mcell_mc2d_height",1000, "metacell")
 tgconfig::set_param("mcell_mc2d_width",1000, "metacell")
 mcell_mc2d_plot(mc2d_id="id_2dproj")
 
-#Calcula e Plot da matriz de confusão
+#Calculate and plot confusion matrix
 set.seed(27)
 mc_hc = mcell_mc_hclust_confu(mc_id=id,graph_id=id)
 set.seed(27)
@@ -94,11 +88,10 @@ head (lfp, n=25L)
 write.csv(lfp, file="control/lfp.csv", row.names=TRUE)
 
 
-#Identificação das subpopulações celulares
-mc = scdb_mc(id)
+#Identification of cell subpopulations
 mcell_mc_export_tab(mc_id = id, gstat_id = id, mat_id = "all", T_fold=2, metadata_fields=NULL)
 lfp <- log2(mc@mc_fp)
 
-#Plot de enriquecimento de genes nas metacelulas
+#Gene enrichment plot in metacells
 png("results_control/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
 png("results_control/barplot2.png",h=1000,w=1000);barplot(lfp["NFKB1",],col=marks_colors,las=2,main="NFKB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
