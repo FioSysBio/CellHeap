@@ -10,7 +10,7 @@ ord_id = "lung_new_sorted"
 library(knitr)
 
 #import objeto do Seurat
-#mild
+#control
 mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected_control.tsv", dset_nm = "/scratch/inova-covd19/vanessa.silva/metadata_control.csv", force = F)
 mat = scdb_mat("all")
 print(dim(mat@mat))
@@ -31,8 +31,6 @@ mcell_mat_ignore_small_cells(id, id, 300)
 set.seed(27)
 mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
 gstat = scdb_gstat(id)
-print(head(gstat))
-print(quantile(gstat$ds_vm_norm,c(1:20)/20))
 write.csv(gstat, file="control/gstat.csv")
 t_vm = 0.4
 mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
@@ -64,7 +62,7 @@ marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt",
 kable(head(marks_colors))
 mc_colorize(new_mc_id = id, mc_id = id, marker_colors=marks_colors,override=T)
 
-#Plot heatmaps with metacells
+#Heatmap plot with metacells
 mcell_gset_from_mc_markers(gset_id=paste0(id,"_markers"), mc_id=id)
 mcell_mc_plot_marks(mc_id=id, gset_id=paste0(id,"_markers"), mat_id=id,plot_cells = T)
 
