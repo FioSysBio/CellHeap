@@ -1,5 +1,6 @@
 # CellHeap
 
+
 This repository contains supplementary materials for the paper "CellHeap: a Workflow for Optimizing COVID-19 Single-Cell RNA-seq Data Processing in the Santos Dumont Supercomputer".
 
 CellHeap is a configurable, portable, and robust workflow for scRNA-seq customizable analyses, with quality control throughout the execution steps, ensuring reliable results and deployable on supercomputers.
@@ -8,7 +9,7 @@ CellHeap comprises six phases: sample curation, gene count matrix generation, qu
 
 Selection criteria for sample curation are the following:
 
-(i) to link to supplementary files on the measurement of genes of experiments;\\
+(i) to link to supplementary files on the measurement of genes of experiments;
 (ii) to access the sample's raw data through SRA selector links;
 (iii) to verify all series samples belong to single species;
 (iv) to verify samples come from non-bacterial species;
