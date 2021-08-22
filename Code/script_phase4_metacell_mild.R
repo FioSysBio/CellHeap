@@ -51,7 +51,7 @@ write.csv(coclust@coclust, file="mild/coclust.csv")
 mc<- scdb_mc(id)
 scdb_add_mc(id,mc)
 
-#Plot dos outliers
+#Plot outliers
 mcell_mc_split_filt(new_mc_id=id,
             mc_id=id,
             mat_id=id,
