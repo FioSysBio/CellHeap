@@ -7,11 +7,17 @@ CellHeap is composed of six phases: sample curation, gene count matrix generatio
 Selection criteria for sample curation are the following:
 
 (i) to link to supplementary files on the measurement of genes of experiments; 
+
 (ii) to access to the sample's raw data through SRA selector links; 
+
 (iii) to verify all series samples belong to single species; 
+
 (iv) to verify samples come from non-bacterial species; 
+
 (v) to verify the source of description of experiments, protocols, cell line information, cell type, and disease as listed by Experimental Factor Ontology (EFO) or publication data; 
+
 (vi) to check if metadata matches names of samples; 
+
 (vii) to verify scRNA-Seq experiments use protocols of Smart-seq2, Smart-like, Drop-seq, Seq-well, 10xV2 (3 and 5 prime), or 10xV3 (3 prime). 
 
 This repository contains a deployment of CellHeap for a dataset made available by Liao et al. 2020:
