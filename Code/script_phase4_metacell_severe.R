@@ -9,7 +9,7 @@ id = "lung_new"
 ord_id = "lung_new_sorted"
 library(knitr)
 
-#import objeto do Seurat
+#import object of Seurat
 #severe
 mcell_import_scmat_tsv(mat_nm = "all", fn = "/scratch/inova-covd19/vanessa.silva/features_not_infected_severe.tsv", dset_nm = "/scratch/inova-covd19/vanessa.silva/metadata_severe.csv", force = F)
 mat = scdb_mat("all")
