@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --nodes=10           #Number of nodes
+#SBATCH --nodes=8           #Number of nodes
 #SBATCH --ntasks-per-node=1  #Number of tasks per node
 #SBATCH --cpus-per-task=6    #Number of threads per MPI task
 #SBATCH -p sequana_cpu_long  #Queue (partition) to be used
