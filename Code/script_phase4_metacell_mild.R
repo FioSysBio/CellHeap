@@ -92,4 +92,4 @@ lfp <- log2(mc@mc_fp)
 
 #Gene enrichment plot in metacells
 png("results_mild/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
-png("results_mild/barplot2.png",h=1000,w=1000);barplot(lfp["NFKB1",],col=marks_colors,las=2,main="NFKB1",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
+
