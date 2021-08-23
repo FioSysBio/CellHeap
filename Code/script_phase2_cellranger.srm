@@ -1,23 +1,23 @@
 #!/bin/bash
-#SBATCH --nodes=8            #Numero de Nós
-#SBATCH --ntasks-per-node=1  #Numero de tarefas por Nó
-#SBATCH --cpus-per-task=6    #Numero de threads por tarefa MPI
-#SBATCH -p sequana_cpu_long  #Fila (partition) a ser utilizada
-#SBATCH -J test_54           #Nome job
-#SBATCH --time=08:00:00      #Altera o tempo limite para 8 horas
-#SBATCH --exclusive          #Utilização exclusiva dos nós durante a execução do job
+#SBATCH --nodes=10           #Number of nodes
+#SBATCH --ntasks-per-node=1  #Number of tasks per node
+#SBATCH --cpus-per-task=6    #Number of threads per MPI task
+#SBATCH -p sequana_cpu_long  #Queue (partition) to be used
+#SBATCH -J test_54           #Job name
+#SBATCH --time=08:00:00      #Change timeout to 08 hours
+#SBATCH --exclusive          #Exclusive use of nodes during job execution
 
-#Exibe os nós alocados para o Job
+#Displays the nodes allocated to the Job
 echo $SLURM_JOB_NODELIST
 nodeset -e $SLURM_JOB_NODELIST
 
 cd $SLURM_SUBMIT_DIR
 
-#Configura o executavel
+#Configure the executable
 EXEC=/scratch/app/cellranger/4.0.0/bin/cellranger
 
 
-#Configura os compiladores
+#Configure the compilers
 module load cellranger
 $EXEC count --id=54\
              --fastqs=/scratch/inova-covd19/vanessa.silva/test54/\
