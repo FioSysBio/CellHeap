@@ -22,7 +22,7 @@ ig_genes = c(grep("ERCC", nms, v=T),
                 grep("^IGK", nms, v=T), 
                 grep("^IGL", nms, v=T),
                 grep("^IGL", nms, v=T))
-bad_genes = unique(c(grep("^MT-", nms, v=T), grep("^MTMR", nms, v=T), grep("^MTND", nms, v=T),"NEAT1","TMSB4X", "TMSB10", ig_genes))
+bad_genes = unique(c(grep("^MT-", nms, v=T), grep("^MTMR", nms, v=T), grep("^MTND", nms, v=T), ig_genes))
 print(bad_genes)
 mcell_mat_ignore_genes(new_mat_id=id, mat_id="all", bad_genes, reverse=F) 
 mcell_mat_ignore_small_cells(id, id, 300)
