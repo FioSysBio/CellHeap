@@ -1,23 +1,23 @@
 #!/bin/bash
-#SBATCH --nodes=10            #Numero de Nós
-#SBATCH --ntasks-per-node=1  #Numero de tarefas por Nó
-#SBATCH --cpus-per-task=6    #Numero de threads por tarefa MPI
-#SBATCH -p sequana_cpu_long  #Fila (partition) a ser utilizada
-#SBATCH -J test_54           #Nome job
-#SBATCH --time=14:00:00      #Altera o tempo limite para 14 horas
-#SBATCH --exclusive          #Utilização exclusiva dos nós durante a execução do job
+#SBATCH --nodes=10            #number of nodes
+#SBATCH --ntasks-per-node=1  #Number of tasks per node
+#SBATCH --cpus-per-task=6    #Number of threads per MPI task
+#SBATCH -p sequana_cpu_long  #Queue (partition) to be used
+#SBATCH -J test_54           #job name
+#SBATCH --time=14:00:00      #Change timeout to 14 hours
+#SBATCH --exclusive          #Exclusive use of nodes during job execution
 
-#Exibe os nós alocados para o Job
+#Displays the nodes allocated to the Job
 echo $SLURM_JOB_NODELIST
 nodeset -e $SLURM_JOB_NODELIST
 
 cd $SLURM_SUBMIT_DIR
 
-#Configura o executavel
+#configure the executable
 EXEC=/scratch/app/sratoolkit/2.10.5/bin/fastq-dump
 
 
-#Configura os compiladores
+#configure the compilers
 module load sratoolkit/2.10.5
 $EXEC --split-files --gzip SRR11181954
 
