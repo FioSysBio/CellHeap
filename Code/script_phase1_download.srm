@@ -1,9 +1,9 @@
 #!/bin/bash
-#SBATCH --nodes=10            #number of nodes
+#SBATCH --nodes=10           #Number of nodes
 #SBATCH --ntasks-per-node=1  #Number of tasks per node
 #SBATCH --cpus-per-task=6    #Number of threads per MPI task
 #SBATCH -p sequana_cpu_long  #Queue (partition) to be used
-#SBATCH -J test_54           #job name
+#SBATCH -J test_54           #Job name
 #SBATCH --time=14:00:00      #Change timeout to 14 hours
 #SBATCH --exclusive          #Exclusive use of nodes during job execution
 
