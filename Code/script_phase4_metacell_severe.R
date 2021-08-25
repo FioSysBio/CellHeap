@@ -100,12 +100,14 @@ mcell_mc2d_plot(mc2d_id="id_2dproj")
 
 #Calculate and plot confusion Matrix
 set.seed(27)
-mc_hc = mcell_mc_hclust_confu(mc_id=id,graph_id=id)
+mc_hc = mcell_mc_hclust_confu(mc_id="new_mc_f",graph_id="new_graph") #####mudei mc_id, graph_id
 set.seed(27)
-mc_sup = mcell_mc_hierarchy(mc_id=id,mc_hc=mc_hc, T_gap=0.04)
+mc_sup = mcell_mc_hierarchy(mc_id="new_mc_f",mc_hc=mc_hc, T_gap=0.04)####### mudei mc_id
 save(file="severe/mc_hc_sup.Rda",mc_hc,mc_sup)
-mcell_mc_plot_hierarchy(mc_id=id,graph_id=id,mc_order=mc_hc$order,sup_mc = mc_sup,width=3500, height=3500, min_nmc=2,show_mc_ids = T)
-mcell_mc_plot_confusion( mc_id=id,  graph_id=id)
+mcell_mc_plot_hierarchy(mc_id="new_mc_f",graph_id="new_graph",mc_order=mc_hc$order,sup_mc = mc_sup,width=3500, height=3500, min_nmc=2,show_mc_ids = T) ###
+########  acima mudei mc_id, graph_id
+
+mcell_mc_plot_confusion( mc_id="new_mc_f",  graph_id="new_graph") ######mudei mc_id, graph_id
 
 lfp <- log2 (mc@mc_fp)
 head (lfp, n=25L)
