@@ -36,22 +36,36 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 #mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
 #save(file="severe/bad_marks.Rda",bad_marks)
 
-marker_gset = scdb_gset("test_feats")
+
+#gset_add_genes(gset, genes, subset_id)
+
+###leitura de arquivo
+###GENE_SET_FILE = read.delim("NOME DO ARQUIVO COM GENES MARCADORES", sep="\t", stringsAsFactors=F)
+
+mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high", subset_id = 1) ####function to add genes to a gene set
+
+
+####mcell_gset_add_gene(gset_id="test_feats_filtered", genes=GENE_SET_FILE, subset_id = 1) ####function to add genes to a gene set
+
+#marker_gset = scdb_gset("test_feats")
 #imarker_gset = gset_new_restrict_gset(gset = marker_gset, filt_gset = lateral_gset, inverse = T, desc = "cgraph gene markers w/o lateral genes")
-scdb_add_gset("test_feats_filtered", marker_gset)
+#scdb_add_gset("test_feats_filtered", marker_gset)
 
 
 #Calculates Knn matrix, resamples and cluster
 set.seed(27)
 mcell_add_cgraph_from_mat_bknn(mat_id="filtered_matrix",gset_id = "test_feats_filtered" ,graph_id="new_graph",K=100,dsamp=T) ###mudei mat_id, graph id
+
 cgraph = scdb_cgraph(id)
 kable(head(cgraph@edges))
 #set.seed(27) não devemos resetar o gerador de números pseudoaleatórios a toda hora
 mcell_coclust_from_graph_resamp(coc_id="new_coc500",graph_id="new_graph",min_mc_size=20,p_resamp=0.70, n_resamp=500)#### mudei coc_id, graph_id
+
 coclust = scdb_coclust(id)
 kable(head(coclust@coclust))
 #set.seed(27)
 mcell_mc_from_coclust_balanced(coc_id="new_coc500",mat_id="filtered_matrix",mc_id="new_mc",K=100, min_mc_size=30, alpha=2) ####mudei coc_id, mat_id, mc_id
+
 write.csv(coclust@coclust, file="severe/coclust.csv")
 mc<- scdb_mc(id)
 scdb_add_mc(id,mc)
@@ -65,7 +79,7 @@ mcell_mc_split_filt(new_mc_id="new_mc_f",
 #Selecting markers genes
 marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt", sep="\t", stringsAsFactors=F)
 kable(head(marks_colors))
-mc_colorize(new_mc_id = id, mc_id = id, marker_colors=marks_colors,override=T)
+mc_colorize(new_mc_id = "new_mc_f", marker_colors=marks_colors,override=T)#####mudei new_mc_id, setei mc_id to default (new_mc_id)
 
 #Heatmap plot with metacells
 mcell_gset_from_mc_markers(gset_id=paste0(id,"_markers"), mc_id=id)
