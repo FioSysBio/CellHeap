@@ -1,3 +1,6 @@
+##### verificar https://tanaylab.github.io/metacell/articles/a-basic_pbmc8k.html
+
+
 #packages and create directories
 library("metacell")
 library("dplyr")
@@ -87,10 +90,10 @@ mc_colorize(new_mc_id = "new_mc_f", marker_colors=marks_colors,override=T)#####m
 
 #Heatmap plot with metacells
 mcell_gset_from_mc_markers(gset_id=paste0(id,"_markers"), mc_id=id)
-mcell_mc_plot_marks(mc_id=id, gset_id=paste0(id,"_markers"), mat_id=id,plot_cells = T)
+mcell_mc_plot_marks(mc_id="new_mc_f", gset_id= "test_feats_filtered", mat_id="filtered_matrix",plot_cells = T) ####mudei mc_id, gset_id, mat_id
 
 #Plot 2D metacells
-mc2d_knn = mcell_mc2d_force_knn(mc2d_id="id_2dproj",mc_id=id, graph_id=id)
+mc2d_knn = mcell_mc2d_force_knn(mc2d_id="id_2dproj",mc_id="new_mc_f", graph_id="new_graph") ####### mudei mc_id, graph_id
 tgconfig::set_param("mcell_mc2d_height",1000, "metacell")
 tgconfig::set_param("mcell_mc2d_width",1000, "metacell")
 mcell_mc2d_plot(mc2d_id="id_2dproj")
