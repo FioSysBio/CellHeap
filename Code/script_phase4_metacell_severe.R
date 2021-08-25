@@ -4,13 +4,14 @@
 #packages and create directories
 library("metacell")
 library("dplyr")
+library("knitr")
 if(!dir.exists("severe")) dir.create("severe/")
 scdb_init("severe/", force_reinit=T)
 if(!dir.exists("results_severe")) dir.create("results_severe/")
 scfigs_init("results_severe/")
 id = "lung_new"
 ord_id = "lung_new_sorted"
-library(knitr)
+
 
 #import object of Seurat
 #severe
@@ -30,9 +31,9 @@ print(bad_genes)
 mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, reverse=F) ############# mudei nome de new_mat_id
 ############mcell_mat_ignore_small_cells(id, id, 300)
 
+
 #Calculates gene dataset statistics
 #set.seed(27)
-#mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
 #gstat = scdb_gstat(id)
 #write.csv(gstat, file="severe/gstat.csv")
 #t_vm = 0.4
@@ -44,11 +45,15 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 
 ###leitura de arquivo
 
-
+#Em que consiste a variável vm_set?
+#o valor T_vm = 0.4, segundo o paper de Viral-track.
 gset = gset_new_gset(vm_set, sprintf("VM %f",T_vm))
 scdb_add_gset("test_feats_filtered", gset)
-mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high", subset_id = 1) ####function to add genes to a gene set
+mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high,CD3,CD4,TBX21,IFNG,IL2,IL12,TNF,CD3,CD4,GATA3,IL4,IL5,IL13,CD3,CD4,RORGT,IL17A,IL17F,IL21,CD3,CD4,FOXP3,TGPB,IL10,CD3,CD4,CD45RA,CCR7,GNLY,PRF1,CD3,CD8,CD8,FCGR3B,PI3,G0S2,CPA3,MS4A2,TPSAB1,TPSAB2,STAT1,TNF,IL6,IL1B,CXCL10,CXCL9,IDO1,IRF5,MARCO,TGFBR2,NKG2D,TCRG,CD79A,CD79B,MS4A1,SCGB1A1,SCGB3A1,MSMB,KRT5,AQP3,TP63,CAPS,TPPP3,RSPH1,KRT13,KRT4,SPRR3,KRT8,KRT18,MMP7,SFTPC,SFTPA1,SFTPB", subset_id = 1) ####function to add genes to a gene set
 
+#comando necessário para exportar tabela da linha 118.
+#A seleção irá considerar somente os genes definidos pela Andrea ou todos?
+mcell_add_gene_stat(gstat_id="genes", mat_id="filtered_matrix", force=T)
 
 ###################. ALTERNATIVA AO COMANDO ACIMA #################################################
 ###GENE_SET_FILE = read.delim("NOME DO ARQUIVO COM GENES MARCADORES", sep="\t", stringsAsFactors=F)
@@ -111,14 +116,13 @@ mcell_mc_plot_hierarchy(mc_id="new_mc_f",graph_id="new_graph",mc_order=mc_hcxxx$
 
 mcell_mc_plot_confusion( mc_id="new_mc_f",  graph_id="new_graph") ######mudei mc_id, graph_id
 
-lfp <- log2 (mc@mc_fp)
-head (lfp, n=25L)
-write.csv(lfp, file="severe/lfp.csv", row.names=TRUE)
-
 #Identification of cell subpopulations###############
-mcell_mc_export_tab(mc_id = id, gstat_id = id, mat_id = "all", T_fold=2, metadata_fields=NULL)##################
-lfp <- log2(mc@mc_fp)
+mcell_mc_export_tab(mc_id ="new_mc_f", gstat_id = "genes", mat_id = "filtered matrix", T_fold=2, metadata_fields=NULL)##################alterei o parâmetro mc_id, gstat_id e mat_id, baseado nas linhas 31 e 56.
 
 #Gene enrichment plot in metacells
+lfp <- log2 (mc@mc_fp) ##
+head (lfp, n=25L)##
+write.csv(lfp, file="severe/lfp.csv", row.names=TRUE)###
+
 png("results_severe/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
 
