@@ -28,7 +28,7 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 ############mcell_mat_ignore_small_cells(id, id, 300)
 
 #Calculates gene dataset statistics
-set.seed(27)
+#set.seed(27)
 #mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
 #gstat = scdb_gstat(id)
 #write.csv(gstat, file="severe/gstat.csv")
@@ -37,10 +37,7 @@ set.seed(27)
 #save(file="severe/bad_marks.Rda",bad_marks)
 
 marker_gset = scdb_gset("test_feats")
-marker_gset = gset_new_restrict_gset(gset = marker_gset, filt_gset = lateral_gset, inverse = T, desc = "cgraph gene markers w/o lateral genes")
-
-
-
+#imarker_gset = gset_new_restrict_gset(gset = marker_gset, filt_gset = lateral_gset, inverse = T, desc = "cgraph gene markers w/o lateral genes")
 scdb_add_gset("test_feats_filtered", marker_gset)
 
 
@@ -60,10 +57,10 @@ mc<- scdb_mc(id)
 scdb_add_mc(id,mc)
 
 #Plot outliers
-mcell_mc_split_filt(new_mc_id=id,
-            mc_id=id,
-            mat_id=id,
-            T_lfc=3, plot_mats=F)
+mcell_mc_split_filt(new_mc_id="new_mc_f",  
+            mc_id="new_mc",  
+            mat_id="filtered_matrix",
+            T_lfc=3, plot_mats=F) ####mudei new_mc_id, mc_id, mat_id
 			
 #Selecting markers genes
 marks_colors = read.delim("/scratch/inova-covd19/vanessa.silva/mc_colorize.txt", sep="\t", stringsAsFactors=F)
