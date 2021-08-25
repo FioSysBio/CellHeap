@@ -7,8 +7,7 @@ library(cowplot)
 library(ggplot2)
 library(RColorBrewer)
 library(gplots)
-library(SoupX)
-library(DropletUtils)
+
 
 #Loading the data 
 #control
@@ -35,25 +34,9 @@ feats <- c("nFeature_RNA", "nCount_RNA", "percent.mt")
 # cell filtering parameters for selecting cells based on number of genes/cell, UMI counts/cell, and percent mitochondrial genes according to Wauters et al, 2021. 
 alldata.filtered.nCount_RNA <- subset(alldata, subset = nFeature_RNA > 150 & nFeature_RNA < 3000 & percent.mt < 20 & nCount_RNA > 301)
 
-#The automated method
-sc = autoEstCont(alldata.filtered.nCount_RNA)
-
-#Correcting expression profile
-out = adjustCounts(sc)
-
-
-#Export data
-DropletUtils:::write10xCounts("../filtered", out)
-
-#import data
-all <- Read10X(data.dir = "../filtered")
-
-#create Seurat object only not infected
-not_infected_sample <- CreateSeuratObject(counts = all)
-
 #Export .tsv and .csv files
-counts <- as.matrix(not_infected_sample@assays$RNA@counts)
-write.csv(counts, file="features_control.tsv")
+out_test <- as.matrix(alldata.filtered.nCount_RNA@assays$RNA@counts)
+write.csv(out_test, file="features_control.tsv")
 write.csv(alldata.filtered.nCount_RNA@meta.data, file="metadata_control.csv")
 
 #import of seurat filter file
