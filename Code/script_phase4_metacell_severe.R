@@ -45,7 +45,8 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 ###leitura de arquivo
 
 
-scdb_add_gset("test_feats_filtered)
+gset = gset_new_gset(vm_set, sprintf("VM %f",T_vm))
+scdb_add_gset("test_feats_filtered", gset)
 mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high", subset_id = 1) ####function to add genes to a gene set
 
 
