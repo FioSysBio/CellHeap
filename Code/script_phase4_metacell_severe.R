@@ -40,12 +40,16 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 #gset_add_genes(gset, genes, subset_id)
 
 ###leitura de arquivo
-###GENE_SET_FILE = read.delim("NOME DO ARQUIVO COM GENES MARCADORES", sep="\t", stringsAsFactors=F)
+
 
 mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high", subset_id = 1) ####function to add genes to a gene set
 
 
+###################. ALTERNATIVA AO COMANDO ACIMA #################################################
+###GENE_SET_FILE = read.delim("NOME DO ARQUIVO COM GENES MARCADORES", sep="\t", stringsAsFactors=F)
 ####mcell_gset_add_gene(gset_id="test_feats_filtered", genes=GENE_SET_FILE, subset_id = 1) ####function to add genes to a gene set
+######################### FIM DA ALTERNATIVA #######################################################
+
 
 #marker_gset = scdb_gset("test_feats")
 #imarker_gset = gset_new_restrict_gset(gset = marker_gset, filt_gset = lateral_gset, inverse = T, desc = "cgraph gene markers w/o lateral genes")
