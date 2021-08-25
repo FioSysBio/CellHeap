@@ -21,24 +21,32 @@ ig_genes = c(grep("ERCC", nms, v=T),
                 grep("^IGH",nms,v=T),
                 grep("^IGK", nms, v=T), 
                 grep("^IGL", nms, v=T),
-                grep("^IGL", nms, v=T))
-bad_genes = unique(c(grep("^MT-", nms, v=T), grep("^MTMR", nms, v=T), grep("^MTND", nms, v=T), ig_genes))
+                grep("^IGJ", nms, v=T)) ###############
+bad_genes = unique(c(ig_genes)) ##############
 print(bad_genes)
 mcell_mat_ignore_genes(new_mat_id=id, mat_id="all", bad_genes, reverse=F) 
-mcell_mat_ignore_small_cells(id, id, 300)
+############mcell_mat_ignore_small_cells(id, id, 300)
 
 #Calculates gene dataset statistics
 set.seed(27)
-mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
-gstat = scdb_gstat(id)
-write.csv(gstat, file="severe/gstat.csv")
-t_vm = 0.4
-mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
-save(file="severe/bad_marks.Rda",bad_marks)
+#mcell_add_gene_stat(gstat_id=id, mat_id=id, force=T)
+#gstat = scdb_gstat(id)
+#write.csv(gstat, file="severe/gstat.csv")
+#t_vm = 0.4
+#mcell_gset_filter_multi(gstat_id=id, gset_id=id, T_tot=50, T_top3=4, T_vm = t_vm, force_new = T)
+#save(file="severe/bad_marks.Rda",bad_marks)
+
+marker_gset = scdb_gset("test_feats")
+marker_gset = gset_new_restrict_gset(gset = marker_gset, filt_gset = lateral_gset, inverse = T, desc = "cgraph gene markers w/o lateral genes")
+
+
+
+scdb_add_gset("test_feats_filtered", marker_gset)
+
 
 #Calculates Knn matrix, resamples and cluster
 set.seed(27)
-mcell_add_cgraph_from_mat_bknn(mat_id=id,gset_id = id,graph_id=id,K=100,dsamp=T)
+mcell_add_cgraph_from_mat_bknn(mat_id=id,gset_id = "test_feats_filtered" ,graph_id=id,K=100,dsamp=T)
 cgraph = scdb_cgraph(id)
 kable(head(cgraph@edges))
 set.seed(27)
