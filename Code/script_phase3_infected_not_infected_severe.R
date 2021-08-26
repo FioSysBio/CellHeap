@@ -41,7 +41,7 @@ feats <- c("nFeature_RNA", "nCount_RNA", "percent.mt")
 alldata.filtered.nCount_RNA <- subset(alldata, subset = nFeature_RNA > 150 & nFeature_RNA < 3000 & percent.mt < 20 & nCount_RNA > 301)
 
 #Export .tsv and .csv files
-counts <- as.matrix(not_infected_sample@assays$RNA@counts)
+counts <- as.matrix(alldata.filtered.nCount_RNA@assays$RNA@counts)
 write.csv(counts, file="features_severe.tsv")
 write.csv(alldata.filtered.nCount_RNA@meta.data, file="metadata_severe.csv")
 
