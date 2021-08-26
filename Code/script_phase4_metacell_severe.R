@@ -79,7 +79,7 @@ gset = gset_new_gset(vm_set, sprintf("VM %f",T_vm))
 
 
 scdb_add_gset("test_feats_filtered", gset)
-mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high,CD3,CD4,TBX21,IFNG,IL2,IL12,TNF,CD3,CD4,GATA3,IL4,IL5,IL13,CD3,CD4,RORGT,IL17A,IL17F,IL21,CD3,CD4,FOXP3,TGPB,IL10,CD3,CD4,CD45RA,CCR7,GNLY,PRF1,CD3,CD8,CD8,FCGR3B,PI3,G0S2,CPA3,MS4A2,TPSAB1,TPSAB2,STAT1,TNF,IL6,IL1B,CXCL10,CXCL9,IDO1,IRF5,MARCO,TGFBR2,NKG2D,TCRG,CD79A,CD79B,MS4A1,SCGB1A1,SCGB3A1,MSMB,KRT5,AQP3,TP63,CAPS,TPPP3,RSPH1,KRT13,KRT4,SPRR3,KRT8,KRT18,MMP7,SFTPC,SFTPA1,SFTPB", subset_id = 1) ####function to add genes to a gene set
+mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3","CD4","CD45RA","CCR7high","CD3","CD4","TBX21","IFNG","IL2","IL12","TNF","CD3","CD4","GATA3","IL4","IL5","IL13","CD3","CD4","RORGT","IL17A","IL17F","IL21","CD3","CD4","FOXP3","TGPB","IL10","CD3","CD4","CD45RA","CCR7","GNLY","PRF1","CD3","CD8","CD8","FCGR3B","PI3","G0S2","CPA3","MS4A2","TPSAB1","TPSAB2","STAT1","TNF","IL6","IL1B","CXCL10","CXCL9","IDO1","IRF5","MARCO","TGFBR2","NKG2D","TCRG","CD79A","CD79B","MS4A1","SCGB1A1","SCGB3A1","MSMB","KRT5","AQP3","TP63","CAPS","TPPP3","RSPH1","KRT13","KRT4","SPRR3","KRT8","KRT18","MMP7","SFTPC","SFTPA1","SFTPB", subset_id = 1) ####function to add genes to a gene set
 
 #comando necessário para exportar tabela da linha 118.
 #A seleção irá considerar somente os genes definidos pela Andrea ou todos?
