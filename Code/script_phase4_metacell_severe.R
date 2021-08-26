@@ -47,12 +47,47 @@ mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, re
 
 #Em que consiste a variável vm_set?
 #o valor T_vm = 0.4, segundo o paper de Viral-track.
+
+############### RESPOSTA #############################################################
+### Vamos lá
+####
+#####O código da chamada está a seguir
+#
+#' Generating a new gset
+#
+#' @param sets a vector where names are genes and values are set ids
+#' @param desc texual description of the gset
+#' @export
+#gset_new_gset = function(sets, desc)
+#{
+#	return(tgGeneSets(sets, desc))
+#}
+#
+#. Para criar um named vetor de set ids que eu vou chamar de vm_set
+# vm_set = c( 1 , 1 ).  ######set id - como tenho um único set o id é o mesmo
+# names( vm_set ) = c( "NOME_DO_GENE1" , "NOME_DO_GENE2" )
+#. 
+#
+#. O segundo parâmetro é uma descrição de texto qualquer - ex: "Genes da Andrea"
+#
+# A chamada poderia ficar assim
+#
+# gset = gset_new_gset(sets = vm_set, desc = "Genes da Andrea")
+# 
 gset = gset_new_gset(vm_set, sprintf("VM %f",T_vm))
+
+
+
 scdb_add_gset("test_feats_filtered", gset)
 mcell_gset_add_gene(gset_id="test_feats_filtered", genes="CD3,CD4,CD45RA,CCR7high,CD3,CD4,TBX21,IFNG,IL2,IL12,TNF,CD3,CD4,GATA3,IL4,IL5,IL13,CD3,CD4,RORGT,IL17A,IL17F,IL21,CD3,CD4,FOXP3,TGPB,IL10,CD3,CD4,CD45RA,CCR7,GNLY,PRF1,CD3,CD8,CD8,FCGR3B,PI3,G0S2,CPA3,MS4A2,TPSAB1,TPSAB2,STAT1,TNF,IL6,IL1B,CXCL10,CXCL9,IDO1,IRF5,MARCO,TGFBR2,NKG2D,TCRG,CD79A,CD79B,MS4A1,SCGB1A1,SCGB3A1,MSMB,KRT5,AQP3,TP63,CAPS,TPPP3,RSPH1,KRT13,KRT4,SPRR3,KRT8,KRT18,MMP7,SFTPC,SFTPA1,SFTPB", subset_id = 1) ####function to add genes to a gene set
 
 #comando necessário para exportar tabela da linha 118.
 #A seleção irá considerar somente os genes definidos pela Andrea ou todos?
+
+####### RESPOSTA: se você der como entrada filtered_matrix, as estatísticas serão calculadas em cima de todos os genes
+#### para calcular estatísticas limitadas ao genes da Andrea, terá de ser gerada nova matriz contendo apenas genes da Andrea
+
+#A seleção irá considerar somente os genes definidos pela Andrea ou todos? 
 mcell_add_gene_stat(gstat_id="genes", mat_id="filtered_matrix", force=T)
 
 ###################. ALTERNATIVA AO COMANDO ACIMA #################################################
