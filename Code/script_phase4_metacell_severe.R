@@ -145,7 +145,6 @@ mcell_mc2d_plot(mc2d_id="id_2dproj")
 mc_hcxxx = mcell_mc_hclust_confu(mc_id="new_mc_f",graph_id="new_graph") #####mudei mc_id, graph_id
 #set.seed(27)
 mc_sup = mcell_mc_hierarchy(mc_id="new_mc_f",mc_hc=mc_hcxxx, T_gap=0.04)####### mudei mc_id
-save(file="severe/mc_hc_sup.Rda",mc_hc,mc_sup)
 mcell_mc_plot_hierarchy(mc_id="new_mc_f",graph_id="new_graph",mc_order=mc_hcxxx$order,sup_mc = mc_sup,width=3500, height=3500, min_nmc=2,show_mc_ids = T) ###
 ########  acima mudei mc_id, graph_id
 
@@ -158,6 +157,6 @@ mcell_mc_export_tab(mc_id ="new_mc_f", gstat_id = "genes", mat_id = "filtered ma
 lfp <- log2 (mc@mc_fp) ##
 head (lfp, n=25L)##
 write.csv(lfp, file="severe/lfp.csv", row.names=TRUE)###
-
+save(file="severe/mc_hc_sup.Rda",mc_hc,mc_sup,lfp)####
 png("results_severe/barplot1.png",h=1000,w=1000);barplot(lfp["IFNG",],col=marks_colors,las=2,main="IFNG",cex.main=3,cex.axis=1,ylab="log2FC",xlab="metacells");dev.off()
 
