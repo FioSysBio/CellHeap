@@ -24,7 +24,7 @@ ig_genes = c(grep("ERCC", nms, v=T),
                 grep("^IGL", nms, v=T),
                 grep("^IGJ", nms, v=T))
 
-bad_genes = unique(c(ig_genes)) ##############
+bad_genes = unique(c(ig_genes)) 
 print(bad_genes)
 mcell_mat_ignore_genes(new_mat_id="filtered_matrix", mat_id="all", bad_genes, reverse=F) 
 
@@ -35,9 +35,9 @@ mcell_gset_filter_cov(gset_id = "test_feats", gstat_id="test", T_tot=30, T_top3=
 mcell_plot_gstats(gstat_id="test", gset_id="test_feats")
 
 #Calculates Knn matrix, resamples and clustering
-mcell_add_cgraph_from_mat_bknn(mat_id="filtered_matrix",gset_id = "test_feats" ,graph_id="new_graph",K=100,dsamp=T) ###mudei mat_id, graph id
-mcell_coclust_from_graph_resamp(coc_id="new_coc500",graph_id="new_graph",min_mc_size=20,p_resamp=0.70, n_resamp=500)#### mudei coc_id, graph_id
-mcell_mc_from_coclust_balanced(coc_id="new_coc500",mat_id="filtered_matrix",mc_id="new_mc",K=30, min_mc_size=30, alpha=2) ####mudei coc_id, mat_id, mc_id
+mcell_add_cgraph_from_mat_bknn(mat_id="filtered_matrix",gset_id = "test_feats" ,graph_id="new_graph",K=100,dsamp=T) 
+mcell_coclust_from_graph_resamp(coc_id="new_coc500",graph_id="new_graph",min_mc_size=20,p_resamp=0.70, n_resamp=500)
+mcell_mc_from_coclust_balanced(coc_id="new_coc500",mat_id="filtered_matrix",mc_id="new_mc",K=30, min_mc_size=30, alpha=2) 
 
 #Plot outliers
 mcell_mc_split_filt(new_mc_id="new_mc_f",  
@@ -55,10 +55,10 @@ mc_colorize_sup_hierarchy(mc_id="new_mc_f", supmc=mc_sup, supmc_key="/scratch/in
 mcell_mc_plot_hierarchy(mc_id="new_mc_f",graph_id="new_graph",mc_order=mc_hc$order, sup_mc = mc_sup, width=3500, height=3500, min_nmc=2,show_mc_ids = T) 
 
 #Plot heatmaps with metacells 
-mcell_mc_plot_marks(mc_id="new_mc_f", gset_id= "test_feats", mat_id="filtered_matrix",plot_cells = T) ####mudei mc_id, gset_id, mat_id
+mcell_mc_plot_marks(mc_id="new_mc_f", gset_id= "test_feats", mat_id="filtered_matrix",plot_cells = T) 
 
 #2D plot of metacells 
-mc2d_knn = mcell_mc2d_force_knn(mc2d_id="id_2dproj",mc_id="new_mc_f", graph_id="new_graph") ####### mudei mc_id, graph_id
+mc2d_knn = mcell_mc2d_force_knn(mc2d_id="id_2dproj",mc_id="new_mc_f", graph_id="new_graph") 
 tgconfig::set_param("mcell_mc2d_height",1000, "metacell")
 tgconfig::set_param("mcell_mc2d_width",1000, "metacell")
 mcell_mc2d_plot(mc2d_id="id_2dproj")
