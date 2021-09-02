@@ -24,10 +24,10 @@ EXEC=/scratch/app/cellranger/4.0.0/bin/cellranger
 #Configure the compilers
 module load cellranger
 $EXEC count --id=59_hv\
-             --fastqs=/scratch/inova-covd19/vanessa.silva/test_59/\
+             --fastqs=/scratch/inova-covd19/vanessa.silva/test_59/new4_0\
              --transcriptome=/scratch/inova-covd19/vanessa.silva/refer_hybrid/new_test/new_hv\
-             --sample=SRR11181959\
-             --chemistry=SC3Pv2
+             --sample=SRR11181959
+            
              
 date 
 echo final 59 SL
