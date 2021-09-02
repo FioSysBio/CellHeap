@@ -4,7 +4,7 @@
 #SBATCH --cpus-per-task=6    #Number of threads per MPI task
 #SBATCH -p sequana_cpu_long  #Queue (partition) to be used
 #SBATCH -J test_59           #Job name
-#SBATCH --time=12:00:00      #Change timeout to 12 hours
+#SBATCH --time=72:00:00      #Change timeout to 72 hours
 #SBATCH --exclusive          #Exclusive use of nodes during job execution
 
 #time
