@@ -1,7 +1,7 @@
 # CellHeap
 
 
-This repository contains supplementary materials for the paper "CellHeap: a Workflow for Optimizing COVID-19 Single-Cell RNA-seq Data Processing in the Santos Dumont Supercomputer", to appear in the Proceedings of the Brazilian Symposium in Bioinformatics 2021.
+This repository contains supplementary materials for the paper "CellHeap: a Workflow for Optimizing COVID-19 Single-Cell RNA-seq Data Processing in the Santos Dumont Supercomputer", to appear in the Proceedings of the Brazilian Symposium on Bioinformatics 2021.
 
 CellHeap is a configurable, portable, and robust workflow for scRNA-seq customizable analyses, with quality control throughout the execution steps, ensuring reliable results and deployable on supercomputers.
 
