@@ -1,0 +1,44 @@
+#!/bin/bash
+#SBATCH --nodes=1            # Numero de nos solicitados
+#SBATCH -p sequana_cpu       # Fila (partition) de execucao escolhida
+#SBATCH -J IPV               # Nome do job
+#SBATCH --time=48:00:00      # Tempo limite para execucao = 48 horas
+#SBATCH --exclusive          # Dedicação exclusiva dos nós durante a execução do job
+#SBATCH --output=%j.out
+#SBATCH --error=%j.err
+
+
+SAMPLE="$1"
+
+#Exibe hora da submissão ao sbatch e informacoes adicionais
+date 
+echo Info-Preftch Sequana-cpu 1 node  nthread 1 "$SAMPLE"
+
+#Exibe os nós alocados para o Job
+echo "$SLURM_JOB_NODELIST"
+nodeset -e "$SLURM_JOB_NODELIST"
+
+cd "$SLURM_SUBMIT_DIR"
+
+#Caminho da ferramenta que será executada
+EXEC=/scratch/app/sratoolkit/2.10.5/bin/vdb-dump
+
+module load sequana/current
+
+#Carrega ferramenta e seus parametros  
+module load sratoolkit/2.10.5_sequana
+time "$EXEC" --info "$SAMPLE"
+
+EXEC=/scratch/app/sratoolkit/2.10.5/bin/prefetch
+time "$EXEC" -X 1000000000  "$SAMPLE" -O ./sra 
+
+echo Validate 
+
+date
+
+#Caminho da ferramenta 
+EXEC=/scratch/app/sratoolkit/2.10.5/bin/vdb-validate
+time "$EXEC" "./sra/${SAMPLE}.sra"
+
+echo Final "$SAMPLE" validation
+date

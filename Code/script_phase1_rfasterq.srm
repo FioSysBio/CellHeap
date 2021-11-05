@@ -1,0 +1,35 @@
+#!/bin/bash
+#SBATCH --nodes=1             # Numero de nos solicitados
+#SBATCH --ntasks-per-node=24  # Numero de tarefas por no 
+#SBATCH -p sequana_cpu        # Fila (partition) de execucao escolhida
+#SBATCH -J FASERQ             # Nome  do job
+#SBATCH --time=04:00:00       # Tempo limite para execucao =  4 horas
+#SBATCH --exclusive           # Dedicação exclusiva dos nós durante a execução do job
+
+SAMPLE="$1"
+
+#Exibe hora da submissão ao sbatch
+date 
+echo Fasterq Sequana-cpu 1 node  nthread 24 SRR11181959
+
+#Exibe os nós alocados para o Job
+echo $SLURM_JOB_NODELIST
+nodeset -e $SLURM_JOB_NODELIST
+
+cd $SLURM_SUBMIT_DIR
+
+#Caminho para a ferramenta a ser executada
+EXEC=/scratch/app/sratoolkit/2.10.5/bin/fasterq-dump
+
+
+#Carrega ferramenta e seus parametros
+time $EXEC "./sra/${SAMPLE}.sra" -e 24 -S -t /tmp
+
+gzip "${SAMPLE}.sra_1.fastq"
+gzip "${SAMPLE}.sra_2.fastq"
+
+mv "${SAMPLE}.sra_1.fastq.gz" "${SAMPLE}_S1_L00_R1_001.fastq.gz"
+mv "${SAMPLE}.sra_2.fastq.gz" "${SAMPLE}_S1_L00_R2_001.fastq.gz"
+
+date
+echo final "$SAMPLE" geracao fasterq
