@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH --nodes=1            # Numero de nos solicitados
+#SBATCH --ntasks-per-node=24 # Numero de tarefas por no
+#SBATCH -p sequana_cpu       # Fila (partition) de execucao escolhida
+#SBATCH -J Info-Pref         # Nome do job
+#SBATCH --time=48:00:00      # Tempo limite para execucao = 48 horas
+#SBATCH --exclusive          # Dedicação exclusiva dos nós durante a execução do job
+#SBATCH --output=logFileSra.out # Trocando nome do arquivo de log
+
+#Exibe hora da submissão ao sbatch e informacoes adicionais
+date
+echo Info-Preftch Sequana-cpu 1 node  nthread 24 entrada via linha de comando
+echo prefetch tradicional - arquivos do NCBI
+
+#Exibe os nós alocados para o Job
+echo $SLURM_JOB_NODELIST
+nodeset -e $SLURM_JOB_NODELIST
+
+cd $SLURM_SUBMIT_DIR
+
+#Caminho da ferramenta que será executada
+
+cp slurm-%j.out logFileSra.out
+
+#Carrega ferramenta e seus parametros
+module load sratoolkit/2.10.5
+
+time ./threadSra sras_teste.txt /scratch/inova-covd19/Teste_threadSra logFileSra.out
+
+date
+
