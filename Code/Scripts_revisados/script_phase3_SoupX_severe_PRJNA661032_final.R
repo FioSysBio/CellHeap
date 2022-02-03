@@ -12,7 +12,7 @@ library(SoupX)
 library(DropletUtils)
 library(conflicted)
 
-#SoupX - Modo automático usando os outputs do CellRanger...o SoupX diz que os resultados serão melhores caso tenha alguma informações de clustering básico e diz que "If you are using 10X data mapped with cellranger, the default clustering produced by cellranger is automatically loaded and used"
+#SoupX - Modo automático usando os outputs do CellRanger...o SoupX diz que os resultados serão melhores caso tenha alguma informação de clustering básico e diz que "If you are using 10X data mapped with cellranger, the default clustering produced by cellranger is automatically loaded and used"
 
 #Carrega os dados dos outputs diretos do CellRanger, cria o objeto SoupChannel e estima o soup profile
 
