@@ -17,6 +17,7 @@ library(reshape2)
 
 
 #Loading the data
+#PRJNA661032
 #severe
 #balf
 patient_1 <- read.table("/home/Script_SD/CellRanger_output/PRJNA661032/SAMN15967311_v6/SoupX/features_not_infected_severe_SAMN15967311.tsv", header=TRUE,row.names=1)
