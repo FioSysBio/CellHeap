@@ -65,9 +65,9 @@ SAMN15967304_sev_balf <- RunUMAP(SAMN15967304_sev_balf, reduction = "pca", dims 
 SAMN15967304_sev_balf <- FindNeighbors(SAMN15967304_sev_balf, reduction = "pca", dims = 1:16)
 
 #Identify clusters of cells by SNN modularity.
-#The parameter resolution is based in paper Liao et al 2020
-#Para agrupar as células, o Seurat aplica técnicas de otimização de modularidade com diversos algoritmos implementados (o padrão é o Louvain e as outras opções são: Louvain algorithm with multilevel refinement; SLM algorithm e Leiden)
-#O parâmetro de resolução define a "granularidade" do clustering com maiores valores levando a um número maior de clusters. Segundo a vignette do Seurat, definir este parâmetro entre 0,4 - 1,2 normalmente retorna bons resultados para conjuntos de dados de cerca de 3K células. A resolução ideal geralmente aumenta para conjuntos de dados maiores. O paper Silvin et al 2020 (estudo de caso) usa a resolução de 0.3 (acho importante testar com 0.5).
+#The parameter resolution is based in paper Liao et al 2020.
+#To group the cells, Seurat applies modularity optimization techniques with several algorithms implemented (the default is Louvain and the other options are: Louvain algorithm with multilevel refinement; SLM algorithm and Leiden).
+#The resolution parameter defines the "granularity" of clustering with larger values leading to a larger number of clusters. According to Seurat's vignette, setting this parameter between 0.4 - 1.2 usually returns good results for datasets of around 3K cells. The optimal resolution usually increases for larger data sets. The paper Silvin et al 2020 (case study) uses the resolution of 0.3 (I think it's important to test with 0.5).
 SAMN15967304_sev_balf <- FindClusters(SAMN15967304_sev_balf, resolution = 1.2)
 
 print("imprimindo objecto Seurat")
