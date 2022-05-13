@@ -33,7 +33,7 @@ out_SAMN15967319_severe_SpX <- adjustCounts(SAMN15967319_severe_SpX)
 #Pode utilizar as matrizes corrigidas provenientes do SoupX diretamente no Seurat através da função CreateSeuratObject
 
 SAMN15967319_severe <- CreateSeuratObject(counts = out_SAMN15967319_severe_SpX, project = "PRJNA661032_Severe",min.cells = 1)
-
+write.csv(SAMN15967319_severe@meta.data, file="metadata_severe_SAMN15967319.csv")
 
 #Discutir qual a melhor abordagem e se seria possível fazer o merge de todas as amostras do mesmo grupo
 
@@ -63,7 +63,6 @@ dev.off()
 #Export .tsv and .csv files
 out_test <- as.matrix(SAMN15967319_severe_filtered@assays$RNA@counts)
 write.table(out_test, file="features_severe_SAMN15967319.tsv", quote=FALSE, sep='\t', col.names = TRUE)
-write.csv(SAMN15967319_severe@meta.data, file="metadata_severe_SAMN15967319.csv")
 
 #import of seurat filter file
 sample <- read.table("features_severe_SAMN15967319.tsv", sep="\t", header=T, row.names = 1)
